@@ -3,11 +3,6 @@ import crypto from "node:crypto";
 import bodyParser from "body-parser";
 import express from "express";
 
-const port = process.env.PORT || 8081;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -18,6 +13,11 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
+});
+
+const port = process.env.PORT || 8081;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 app.get("/meals", async (req, res) => {
@@ -98,5 +98,3 @@ app.use((req, res) => {
 
   res.status(404).json({ message: "Not found" });
 });
-
-app.listen(3000);
